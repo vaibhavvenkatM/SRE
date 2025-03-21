@@ -1,7 +1,10 @@
+// Queue.tsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSocket } from "../config/socket_config";
 import queueImage from "../assets/background_queue.jpeg";
+// import "./Queue.css";
+import "../styles/Queue.css";
 
 interface Question {
   id: string;
@@ -38,18 +41,15 @@ const Queue: React.FC = () => {
       setStatus("Connected to server. Ready to join queue.");
     }
 
-    // Check if there was a previous game in progress
     const existingGameId = localStorage.getItem("gameId");
     if (existingGameId) {
       setGameId(existingGameId);
       setMatchStarted(true);
       setStatus("Returning to active game...");
       
-      // Navigate to quiz if game data exists
       if (localStorage.getItem("questions") && localStorage.getItem("topic")) {
         navigate('/quiz');
       } else {
-        // Clean up if data is inconsistent
         cleanupGameData();
       }
     }
@@ -64,7 +64,6 @@ const Queue: React.FC = () => {
       setStatus("Match found! Game starting...");
       setGameId(data.gameId);
       
-      // Store game data in localStorage
       localStorage.setItem("questions", JSON.stringify(data.questions));
       localStorage.setItem("topic", JSON.stringify(data.topic));
       localStorage.setItem("gameId", data.gameId);
@@ -83,10 +82,8 @@ const Queue: React.FC = () => {
       setMatchStarted(false);
       setGameId(null);
       
-      // Clean up game data from localStorage
       cleanupGameData();
       
-      // If we're on the quiz page, navigate back to dashboard
       const currentPath = window.location.pathname;
       if (currentPath === '/quiz') {
         navigate('/dashboard');
@@ -155,7 +152,6 @@ const Queue: React.FC = () => {
         if (data.inActiveGame) {
           setStatus("You are already in an active game!");
           setMatchStarted(true);
-          // If we have a gameId in the response, use it
           if (data.gameId) {
             setGameId(data.gameId);
             localStorage.setItem("gameId", data.gameId);
@@ -193,7 +189,6 @@ const Queue: React.FC = () => {
         } else {
           setStatus("Left queue. Ready to join again.");
           setInQueue(false);
-          // Only clean up if not in active game
           if (!matchStarted) {
             cleanupGameData();
           }
@@ -212,38 +207,37 @@ const Queue: React.FC = () => {
       leaveQueue();
     }
     
-    // Redirect to dashboard but don't clean up if in active game
     navigate("/dashboard");
   };
 
   return (
-    <div style={styles.mainContentStyles}>
-      <div style={styles.contentStyles}>
-        <h1 style={styles.titleStyles}>THE ARENA AWAITS ..</h1>
+    <div className="main-content-styles">
+      <div className="content-styles">
+        <h1 className="title-styles">THE ARENA AWAITS ..</h1>
 
-        <p style={styles.statusStyles}>{status}</p>
+        <p className="status-styles">{status}</p>
 
-        {inQueue && !matchStarted && <div style={styles.spinner}></div>}
+        {inQueue && !matchStarted && <div className="spinner"></div>}
 
         {inQueue && !matchStarted && (
-          <p style={styles.messageStyles}>You are in queue, please wait....</p>
+          <p className="message-styles">You are in queue, please wait....</p>
         )}
 
         {matchStarted && (
-          <p style={styles.matchActiveStyles}>Match is active! Return to game</p>
+          <p className="match-active-styles">Match is active! Return to game</p>
         )}
 
-        <div style={styles.buttonContainer}>
+        <div className="button-container">
           {matchStarted && (
             <button 
-              style={{...styles.buttonStyles, backgroundColor: "#28a745"}} 
+              className="return-to-game-button"
               onClick={() => navigate('/quiz')}
             >
               Return to Game
             </button>
           )}
           
-          <button style={styles.buttonStyles} onClick={exitQueue}>
+          <button className="exit-queue-button" onClick={exitQueue}>
             {matchStarted ? "Back to Dashboard" : "Exit Queue"}
           </button>
         </div>
@@ -251,96 +245,5 @@ const Queue: React.FC = () => {
     </div>
   );
 };
-
-const styles: Record<string, React.CSSProperties> = {
-  mainContentStyles:{
-    position: "absolute",
-    top: "0",
-    left: "0",
-    right: "0",
-    bottom: "0",
-    display: "flex",
-    flexDirection: "column",
-    backgroundImage: `url(${queueImage})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundAttachment: "fixed",
-    width: "100vw",
-    height: "100vh",
-    filter: "brightness(1)",
-    transition: "0.3s ease-in-out",
-  },
-  contentStyles: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
-    transition: "0.3s ease-in-out",
-  },
-  titleStyles: {
-    fontSize: "40px",
-    fontWeight: "bolder",
-    color: "white",
-    marginBottom: "20px",
-  },
-  statusStyles: {
-    fontSize: "20px",
-    color: "white",
-    marginBottom: "20px",
-  },
-  spinner: {
-    width: "50px",
-    height: "50px",
-    border: "5px solid rgba(255, 255, 255, 0.3)",
-    borderTop: "5px solid white",
-    borderRadius: "50%",
-    animation: "spin 1s linear infinite",
-    marginBottom: "20px",
-  },
-  messageStyles: {
-    fontSize: "20px",
-    color: "white",
-    marginBottom: "20px",
-  },
-  matchActiveStyles: {
-    fontSize: "24px",
-    color: "#28a745",
-    fontWeight: "bold",
-    marginBottom: "20px",
-  },
-  buttonContainer: {
-    display: "flex",
-    flexDirection: "row",
-    gap: "15px",
-  },
-  buttonStyles: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    backgroundColor: "#0f7bff",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  }
-};
-
-/* Add global CSS animation */
-const globalStyles = document.createElement("style");
-globalStyles.innerHTML = `
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-`;
-document.head.appendChild(globalStyles);
 
 export default Queue;
