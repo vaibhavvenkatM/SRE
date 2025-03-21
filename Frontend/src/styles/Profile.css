@@ -1,0 +1,269 @@
+/* Profile.css */
+.containerStyles {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .overlayStyles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+  }
+  
+  .navbarStyles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to right, #2C3E50, #4CA1AF);
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+  
+  .sidebarStyles {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 260px;
+    height: calc(100% - 70px);
+    background: #2C3E50;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 11;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 10px;
+    transform: translateX(-100%);
+  }
+  
+  .sidebarHeaderStyles {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .profileImgStyles {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-bottom: 10px;
+  }
+  
+  .navListStyles {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .navLinkStyles {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 5px;
+    transition: background 0.3s, transform 0.2s;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .logoutLinkStyles {
+    composes: navLinkStyles;
+    background: #E74C3C;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .iconStyles {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+  
+  .sidebarActiveStyles {
+    background-color: #4CA1AF;
+    transform: scale(1.05);
+  }
+  
+  .navbarTitleStyles {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: bold;
+  }
+  
+  .menuButtonStyles {
+    font-size: 24px;
+    background: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .logoStyles {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .mainContentStyles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../assets/profil.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    padding-top: 70px;
+    overflow-y: auto;
+  }
+  
+  .contentOverlayStyles {
+    width: 100%;
+    min-height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 20px 60px 20px;
+    box-sizing: border-box;
+  }
+  
+  .userInfoCardStyles {
+    background-color: rgba(20, 20, 20, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .userAvatarContainerStyles {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(76, 161, 175, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    background: #2C3E50;
+    box-shadow: 0 0 20px rgba(76, 161, 175, 0.5);
+  }
+  
+  .userAvatarStyles {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .userNameStyles {
+    color: white;
+    font-size: 24px;
+    margin: 0 0 15px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .userDetailsContainerStyles {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5px;
+  }
+  
+  .userDetailItemStyles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .userDetailLabelStyles {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .userDetailValueStyles {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .statsSectionStyles {
+    width: 90%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .sectionTitleStyles {
+    color: white;
+    font-size: 24px;
+    margin: 0 0 10px 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .chartsContainerStyles {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 30px;
+  }
+  
+  .chartCardStyles {
+    background-color: rgba(20, 20, 20, 0.8);
+    border-radius: 10px;
+    padding: 15px;
+    flex: 1 1 300px;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .chartTitleStyles {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+  }

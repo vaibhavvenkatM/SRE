@@ -1,0 +1,82 @@
+/* Login.css */
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../assets/register.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-box {
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    font-size: 2rem;
+    color: white;
+    width: 350px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
+  }
+  
+  .login-title {
+    margin-bottom: 20px;
+    font-family: serif;
+  }
+  
+  .login-form {
+    width: 100%;
+  }
+  
+  .login-label {
+    align-self: flex-start;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .login-input {
+    margin-top: 5px;
+    background: white;
+    border-radius: 5px;
+  }
+  
+  .login-input .MuiOutlinedInput-root {
+    height: 40px;
+    font-size: 14px;
+  }
+  
+  .login-input .MuiOutlinedInput-root input {
+    padding: 8px;
+  }
+  
+  .login-submit-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background: #3B3FCB;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-submit-button:hover {
+    background: #3038a5;
+  }
+  
+  .login-register-text {
+    margin-top: 15px;
+    font-size: 16px;
+  }
+  
+  .login-register-link {
+    color: #FFD700;
+    text-decoration: underline;
+    cursor: pointer;
+  }

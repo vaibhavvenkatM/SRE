@@ -1,115 +1,74 @@
+// Login.tsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography, Alert } from "@mui/material";
 import registerImage from "../assets/register.jpg";
-
-// Add this to your global CSS file or create a style component
-const globalStyles = `
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-  
-  #root {
-    width: 100%;
-    height: 100%;
-  }
-`;
+// import "./Login.css"; // Import styles
+import "../styles/Login.css";
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate(); // For navigation after login
+  const navigate = useNavigate();
 
-  // Handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
+    setError(null);
 
     try {
-        const response = await fetch("http://localhost:5000/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-        });
+      const response = await fetch("http://localhost:5000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error(data.error || "Login failed");
-        }
+      if (!response.ok) {
+        throw new Error(data.error || "Login failed");
+      }
 
-        console.log("Login Successful:", data);
-        
-        // Store token in localStorage or sessionStorage (optional)
-        localStorage.setItem("token", data.token);
+      console.log("Login Successful:", data);
+      localStorage.setItem("token", data.token);
 
-        navigate("/dashboard"); // Redirect on success
+      navigate("/dashboard");
 
     } catch (error: any) {
-        setError(error.message); // Show error message in UI
+      setError(error.message);
     }
   };
 
   return (
     <>
-      {/* Inject global styles */}
-      <style>{globalStyles}</style>
-      
-      <Box
-        sx={{
-          width: "100vw",
-          height: "100vh",
-          margin: 0,
-          padding: 0,
-          backgroundImage: `url(${registerImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-        }}
-      >
-        <Box
-          sx={{
-            padding: "30px",
-            borderRadius: "10px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            fontWeight: "bold",
-            fontSize: "2rem",
-            color: "white",
-            width: "350px",
-            boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.6)",
-            backdropFilter: "blur(5px)",
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
-          }}
-        >
-          <Typography variant="h4" sx={{ marginBottom: "20px", fontFamily: "serif" }}>
+      <style>{`
+        html, body {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+
+        #root {
+          width: 100%;
+          height: 100%;
+        }
+      `}</style>
+
+      <Box className="login-container">
+        <Box className="login-box">
+          <Typography variant="h4" className="login-title">
             Login
           </Typography>
 
-          {/* Display Error Message if Any */}
           {error && <Alert severity="error">{error}</Alert>}
 
-          {/* Form Start */}
-          <form onSubmit={handleSubmit} style={{ width: "100%" }}>
-            <Typography sx={styles.label}>Email</Typography>
+          <form onSubmit={handleSubmit} className="login-form">
+            <Typography className="login-label">Email</Typography>
             <TextField
               type="email"
               variant="outlined"
@@ -118,10 +77,10 @@ const Login: React.FC = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              sx={styles.input}
+              className="login-input"
             />
 
-            <Typography sx={styles.label}>Password</Typography>
+            <Typography className="login-label">Password</Typography>
             <TextField
               type="password"
               variant="outlined"
@@ -130,75 +89,28 @@ const Login: React.FC = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              sx={styles.input}
+              className="login-input"
             />
 
-            <Button type="submit" variant="contained" sx={styles.submitButton}>
+            <Button type="submit" variant="contained" className="login-submit-button">
               Submit
             </Button>
           </form>
-          {/* Form End */}
 
-          <Typography sx={styles.registerText}>
+          <Typography className="login-register-text">
             Don't have an account?{" "}
-            <Link to="/registration" style={styles.registerLink}>
+            <Link to="/registration" className="login-register-link">
               Register
             </Link>
           </Typography>
 
-          {/* Move to Home Page Button */}
-          <Button component={Link} to="/" variant="contained" sx={styles.submitButton}>
+          <Button component={Link} to="/" variant="contained" className="login-submit-button">
             Move to Home Page
           </Button>
         </Box>
       </Box>
     </>
   );
-};
-
-// Styles
-const styles = {
-  label: {
-    alignSelf: "flex-start",
-    fontSize: "14px",
-    fontWeight: "bold",
-    marginTop: "10px",
-  },
-  input: {
-    marginTop: "5px",
-    background: "white",
-    borderRadius: "5px",
-    "& .MuiOutlinedInput-root": {
-      height: "40px",
-      fontSize: "14px",
-      "& input": {
-        padding: "8px",
-      },
-    },
-  },
-  submitButton: {
-    width: "100%",
-    padding: "10px",
-    marginTop: "20px",
-    background: "#3B3FCB",
-    color: "white",
-    fontSize: "16px",
-    fontWeight: "bold",
-    borderRadius: "5px",
-    cursor: "pointer",
-    "&:hover": {
-      background: "#3038a5",
-    },
-  },
-  registerText: {
-    marginTop: "15px",
-    fontSize: "16px",
-  },
-  registerLink: {
-    color: "#FFD700",
-    textDecoration: "underline",
-    cursor: "pointer",
-  },
 };
 
 export default Login;
